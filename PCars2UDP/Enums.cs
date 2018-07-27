@@ -2,7 +2,7 @@
 /// The data structure and enums used was taken from the official API header file.
 /// All the data here is copyright to their respective owners.
 /// </copyright>
-namespace Pcars2UDP
+namespace PCars2UDP
 {
     using System;
 

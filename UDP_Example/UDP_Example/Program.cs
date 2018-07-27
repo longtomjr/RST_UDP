@@ -1,7 +1,8 @@
-﻿using PcarsUDP;
+﻿using PCars2UDP;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Xml.Serialization;
 
 
 namespace UDP_Example
@@ -10,18 +11,20 @@ namespace UDP_Example
     {
         static void Main(string[] args)
         {
-            UdpClient listener = new UdpClient(5606);                       //Create a UDPClient object
-            IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 5606);       //Start recieving data from any IP listening on port 5606 (port for PCARS2)
 
-            
-            PCars2_UDP uDP = new PCars2_UDP(listener, groupEP);             //Create an UDP object that will retrieve telemetry values from in game.
+            PCars2Listener listener = new PCars2Listener();
+               
+            PCars2UDPReader uDP = new PCars2UDPReader(listener);             //Create an UDP object that will retrieve telemetry values from in game.
 
             while (true)
             {
-                uDP.readPackets();                      //Read Packets ever loop iteration
-                //Console.WriteLine(uDP.ParticipantInfo[uDP.ViewedParticipantIndex, 15]);
-                Console.WriteLine(uDP.ParticipantInfo[uDP.ViewedParticipantIndex, 14] + " " + uDP.ParticipantInfo[uDP.ViewedParticipantIndex, 8]+ " " + uDP.ParticipantInfo[uDP.ViewedParticipantIndex, 15]);
-                
+                uDP.ReadPackets();                      //Read Packets ever loop iteration
+                                                        //Console.WriteLine(uDP.ParticipantInfo[uDP.ViewedParticipantIndex, 15]);
+                // NOTE: JUST FOR DEBUG PURPOSES
+                //XmlSerializer x = new XmlSerializer(uDP.GetType());
+                //x.Serialize(Console.Out, uDP);
+                //Console.WriteLine();
+
                 //Write to console what our current speed is.
 
                 //For Wheel Arrays 0 = Front Left, 1 = Front Right, 2 = Rear Left, 3 = Rear Right.

@@ -19,7 +19,12 @@ namespace UDP_Example
             while (true)
             {
                 uDP.ReadPackets();                      //Read Packets ever loop iteration
-                                                        //Console.WriteLine(uDP.ParticipantInfo[uDP.ViewedParticipantIndex, 15]);
+                if (uDP.PacketType == 7)
+                {
+                    Console.WriteLine(uDP.Participants[uDP.ViewedParticipantIndex].LastLapTime.ToString());
+                }
+                
+
                 // NOTE: JUST FOR DEBUG PURPOSES
                 //XmlSerializer x = new XmlSerializer(uDP.GetType());
                 //x.Serialize(Console.Out, uDP);

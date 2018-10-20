@@ -14,14 +14,16 @@ namespace PCars2UDP
 
         public IPEndPoint GroupEP { get => _groupEP; set => _groupEP = value; }     //Start recieving data from any IP listening on port 5606 (port for PCARS2)
 
-        public PCars2Listener() : base(5606)
+        public PCars2Listener() : this(5606)
         {
-            GroupEP = new IPEndPoint(IPAddress.Any, 5606);
         }
 
         public PCars2Listener(int port) : base(port)
         {
-            GroupEP = new IPEndPoint(IPAddress.Any, 5606);
+            GroupEP = new IPEndPoint(IPAddress.Any, port);
+            this.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            this.ExclusiveAddressUse = false;
+
         }
 
         public byte[] Receive()

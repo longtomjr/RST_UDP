@@ -72,6 +72,32 @@ namespace PCars2UDP
             {
                 ReadRaceData(stream, binaryReader);
             }
+            else if (PacketType == 7)
+            {
+                ReadParticipantStats(stream, binaryReader);
+            }
+
+        }
+
+        private void ReadParticipantStats(Stream stream, BinaryReader binaryReader)
+        {
+            stream.Position = 12;
+            this.ParticipantsChangedTimestamp = binaryReader.ReadUInt32();
+            for (int i = 0; i < 32; i++)
+            {
+                // Get the position and assign the index
+                stream.Position = 16 + (((i+1) * 32) - 4);
+                int n = binaryReader.ReadUInt16();
+
+                stream.Position = 16 + (((i+1) * 32) - 32);
+                Participants[i].FastestLapTime = binaryReader.ReadSingle();
+                Participants[i].LastLapTime = binaryReader.ReadSingle();
+                Participants[i].LastSectorTime = binaryReader.ReadSingle();
+                Participants[i].FastestSector1Time = binaryReader.ReadSingle();
+                Participants[i].FastestSector2Time = binaryReader.ReadSingle();
+                Participants[i].FastestSector3Time = binaryReader.ReadSingle();
+                Participants[i].OnlineRep = binaryReader.ReadUInt32();
+            }
 
         }
 
@@ -603,7 +629,6 @@ namespace PCars2UDP
         public sbyte WindDirectionX { get; set; }
 
         public sbyte WindDirectionY { get; set; }
-
 
 
     }

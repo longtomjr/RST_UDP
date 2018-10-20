@@ -167,6 +167,18 @@
         public uint ClassIndex { get; set; }
         public byte[] ClassName { get => _className; set => _className = value; }
 
+        // Participant Stats Info
+        public float FastestLapTime { get; set; }
+        public float LastLapTime { get; set; }
+        public float LastSectorTime { get; set; }
+        public float FastestSector1Time { get; set; }
+        public float FastestSector2Time { get; set; }
+        public float FastestSector3Time { get; set; }
+        public uint OnlineRep { get; set; }
+        public ushort MPParticipantIndex { get; set; }
+        
+
+
 
     }
 }
